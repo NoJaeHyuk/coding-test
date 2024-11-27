@@ -17,26 +17,9 @@ public class B25593 {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < 4; j++) {
-                String[] days = br.readLine().split(" ",7);
-                if (j == 0 || j == 2) {
-                    for (String str : days) {
-                        if (!str.equals("-")) {
-                            map.put(str, map.getOrDefault(str, 0) + 4);
-                        }
-                    }
-                } else if (j == 1) {
-                    for (String str : days) {
-                        if (!str.equals("-")) {
-                            map.put(str, map.getOrDefault(str, 0) + 6);
-                        }
-                    }
-                } else {
-                    for (String str : days) {
-                        if (!str.equals("-")) {
-                            map.put(str, map.getOrDefault(str, 0) + 10);
-                        }
-                    }
-                }
+                String[] employees = br.readLine().split(" ", 7);
+                int hour = getWorkPeriodHours(j); // 근무시간 대 별 근무시간
+                updateEmployeeWorkHours(map, employees, hour); // 근무자별 근무 시간 합산
             }
         }
 
@@ -46,14 +29,36 @@ public class B25593 {
         }
 
         // 최대값 구하기
-        Map.Entry<String, Integer> maxEntry = Collections.max(map.entrySet(), Map.Entry.comparingByValue());
+        Integer max = Collections.max(map.values());
         // 최소값 구하기
-        Map.Entry<String, Integer> minEntry = Collections.min(map.entrySet(), Map.Entry.comparingByValue());
+        Integer min = Collections.min(map.values());
 
-        if (maxEntry.getValue() - minEntry.getValue() > 12) {
+        if (max - min > 12) {
             System.out.println("No");
         } else {
             System.out.println("Yes");
+        }
+    }
+
+    // 근무자별 근무시간 합산
+    private static void updateEmployeeWorkHours(Map<String, Integer> map, String[] employees, int hour) {
+        for (String employee : employees) {
+            if (!employee.equals("-")) {
+                map.put(employee, map.getOrDefault(employee, 0) + hour);
+            }
+        }
+    }
+
+    // 근무시간 대 별 근무시간
+    private static int getWorkPeriodHours(int row) {
+        switch (row) {
+            case 0:
+            case 2:
+                return 4;
+            case 1:
+                return 6;
+            default:
+                return 10;
         }
     }
 }
