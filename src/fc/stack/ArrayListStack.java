@@ -52,7 +52,7 @@ public class ArrayListStack<E> extends Stack<E> {
     }
 
     public static void main(String[] args) {
-        ArrayListStack<Integer> stack = new ArrayListStack<>();
+        ArrayListStack<Integer> stack = new fc.stack.ArrayListStack<Integer>();
 
         // 데이터 추가 (push)
         stack.push(10);
