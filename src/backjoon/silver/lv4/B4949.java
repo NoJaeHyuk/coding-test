@@ -23,7 +23,6 @@ public class B4949 {
                     stack.push(ch);
                 } else if (ch == ')' || ch == ']') {
                     if (stack.isEmpty() || !isMatchingPair(stack.pop(), ch)) {
-                        System.out.println("no");
                         isBalanced = false;
                         break;
                     }
